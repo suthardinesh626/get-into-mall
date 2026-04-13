@@ -15,6 +15,7 @@ export default function VideoBackground({
   poster,
   overlayOpacity = 0.62,
   gradientOverlay = true,
+  iframeRef,          // optional ref to access the iframe for postMessage control
 }) {
   const [iframeError, setIframeError] = useState(false);
   const videoRef = useRef(null);
@@ -42,6 +43,7 @@ export default function VideoBackground({
       embedUrl.searchParams.set('modestbranding', '1');
       embedUrl.searchParams.set('iv_load_policy', '3');
       embedUrl.searchParams.set('disablekb', '1');
+      embedUrl.searchParams.set('enablejsapi', '1');  // Required for postMessage mute/unmute
       embedUrl.searchParams.set('playlist', embedUrl.pathname.split('/').pop()); // loop requires playlist
       return embedUrl.toString();
     } catch {
@@ -55,6 +57,7 @@ export default function VideoBackground({
       {src && !iframeError ? (
         isYouTube ? (
           <iframe
+            ref={iframeRef}
             className="vb__iframe"
             src={buildYouTubeUrl(src)}
             title="Background video"

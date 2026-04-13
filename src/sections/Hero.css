@@ -263,6 +263,161 @@
 }
 
 /* ──────────────────────────────────────
+   MUTE / UNMUTE BUTTON — bottom-right
+   ────────────────────────────────────── */
+.hero2__mute-btn {
+  position: absolute;
+  bottom: var(--space-2xl);
+  right: var(--space-2xl);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform 0.15s ease;
+}
+
+.hero2__mute-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--color-white);
+}
+
+.hero2__mute-btn:active {
+  transform: scale(0.95);
+}
+
+/* When unmuted — highlight gold to indicate active audio */
+.hero2__mute-btn--unmuted {
+  border-color: rgba(201, 168, 76, 0.6);
+  color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.1);
+}
+
+.hero2__mute-btn--unmuted:hover {
+  background: rgba(201, 168, 76, 0.2);
+  border-color: var(--color-gold);
+}
+
+.hero2__mute-label {
+  line-height: 1;
+}
+
+/* ──────────────────────────────────────
+   WATCH VIDEO TOGGLE BUTTON
+   ────────────────────────────────────── */
+.hero2__watch-wrap {
+  position: absolute;
+  top: var(--space-2xl);
+  right: var(--space-2xl);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+/* Animated finger emoji pointing at the button */
+.hero2__watch-finger {
+  font-size: 1.4rem;
+  display: block;
+  /* Bounce side-to-side pointing at button */
+  animation: fingerPoint 1.6s ease-in-out infinite;
+  transform-origin: bottom center;
+  /* Fade out after a while to not be distracting */
+  opacity: 1;
+}
+
+@keyframes fingerPoint {
+  0%, 100% { transform: translateX(0) rotate(-20deg); }
+  50%       { transform: translateX(6px) rotate(-20deg); }
+}
+
+/* The button itself */
+.hero2__watch-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  border-radius: var(--radius-full);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    transform 0.15s ease;
+  /* Pulse glow to draw eye */
+  box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4);
+  animation: watchPulse 2.5s ease-out 2s 3; /* pulse 3 times, starts after 2s */
+}
+
+@keyframes watchPulse {
+  0%   { box-shadow: 0 0 0 0   rgba(201, 168, 76, 0.5); }
+  60%  { box-shadow: 0 0 0 10px rgba(201, 168, 76, 0); }
+  100% { box-shadow: 0 0 0 0   rgba(201, 168, 76, 0); }
+}
+
+.hero2__watch-btn:hover {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.hero2__watch-btn:active {
+  transform: scale(0.95);
+}
+
+/* Active state when content is hidden */
+.hero2__watch-btn--active {
+  background: rgba(201, 168, 76, 0.2);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.hero2__watch-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Content fade-out when watching video */
+.hero2__content {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hero2__content--hidden {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none; /* Don't capture clicks when invisible */
+}
+
+/* ──────────────────────────────────────
    GOLD CORNER FRAMES
    ────────────────────────────────────── */
 .hero2__corner {
