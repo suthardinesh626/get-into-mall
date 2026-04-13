@@ -1,0 +1,63 @@
+.sc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.sc__number {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  line-height: 1;
+  font-family: var(--font-mono);
+}
+
+.sc__value {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Fallback for browsers that don't support background-clip */
+  color: var(--color-gold);
+}
+
+.sc__prefix {
+  font-size: 0.5em;
+  font-weight: var(--weight-bold);
+  color: var(--color-gold);
+  opacity: 0.85;
+  align-self: flex-start;
+  padding-top: 0.35em;
+  /* gradient text on prefix too */
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sc__suffix {
+  font-size: em;
+  font-weight: var(--weight-bold);
+  opacity: 0.85;
+  align-self: flex-start;
+  padding-top: 0.25em;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sc__label {
+  font-family: var(--font-sans);
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}

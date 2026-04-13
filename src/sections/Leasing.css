@@ -1,0 +1,288 @@
+.leasing {
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  padding: var(--space-5xl) 0;
+}
+
+.leasing__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.leasing__bg-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(201, 168, 76, 0.08) 0%, transparent 70%),
+    var(--color-surface);
+}
+
+.leasing__bg-glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(201, 168, 76, 0.15) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.leasing__inner {
+  position: relative;
+  z-index: var(--z-elevated);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xl);
+  width: 100%;
+}
+
+.leasing__header { max-width: 640px; }
+
+/* ─── Main Layout ─── */
+.leasing__layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+/* ─── Contact Cards ─── */
+.leasing__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.leasing__contact {
+  padding: var(--space-xl);
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+}
+
+.leasing__contact-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.leasing__contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.leasing__contact-role {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.leasing__contact-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.leasing__contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: var(--space-xs);
+}
+
+.leasing__contact-link {
+  font-size: var(--text-sm);
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: var(--transition-fast);
+  font-weight: var(--weight-medium);
+}
+
+.leasing__contact-link:hover {
+  color: var(--color-gold-light);
+  text-decoration: underline;
+}
+
+/* ─── Form ─── */
+.leasing__form {
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.leasing__form-headline {
+  font-family: var(--font-sans);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.leasing__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.leasing__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.leasing__label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.leasing__input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  transition: var(--transition-fast);
+  width: 100%;
+  appearance: none;
+}
+
+.leasing__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.leasing__input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background: rgba(201, 168, 76, 0.04);
+  box-shadow: 0 0 0 3px var(--color-gold-glow);
+}
+
+.leasing__select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A5A5A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.leasing__select option {
+  background: var(--color-surface-3);
+  color: var(--color-text-primary);
+}
+
+.leasing__textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ─── Success State ─── */
+.leasing__success {
+  padding: var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-lg);
+  min-height: 300px;
+  justify-content: center;
+}
+
+.leasing__success-icon {
+  font-size: 3rem;
+  color: var(--color-gold);
+  animation: float 4s ease-in-out infinite;
+}
+
+.leasing__success-headline {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+}
+
+.leasing__success-body {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  max-width: 380px;
+  line-height: 1.7;
+}
+
+/* ─── Footer ─── */
+.leasing__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-border);
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.leasing__footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.leasing__footer-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-gold);
+}
+
+.leasing__footer-addr {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.leasing__footer-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.leasing__footer-link {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.leasing__footer-link:hover { color: var(--color-gold); }
+
+.leasing__footer-sep {
+  color: var(--color-text-muted);
+}
+
+.leasing__footer-copy {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1100px) {
+  .leasing__layout { grid-template-columns: 1fr; }
+  .leasing__contacts { order: 2; }
+  .leasing__form-wrap { order: 1; }
+}
+
+@media (max-width: 600px) {
+  .leasing__form-row { grid-template-columns: 1fr; }
+  .leasing__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

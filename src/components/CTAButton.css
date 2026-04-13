@@ -1,0 +1,44 @@
+.cta-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn__text {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-btn__icon {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.cta-btn:hover .cta-btn__icon {
+  transform: translateX(4px);
+}
+
+/* Shine sweep effect */
+.cta-btn__shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cta-btn:hover .cta-btn__shine {
+  left: 150%;
+}

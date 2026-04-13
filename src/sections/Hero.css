@@ -1,0 +1,339 @@
+/* ============================================================
+   HERO 2 — Cinematic opening section
+   References: Tesla.com, Sphere Las Vegas, Dubai Mall
+   ============================================================ */
+
+/* ── Section shell ── */
+.hero2 {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-black);
+  /* Entire section starts invisible, transitions to opacity:1 */
+  opacity: 0;
+  transition: opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hero2--visible {
+  opacity: 1;
+}
+
+/* ── Center content block ── */
+.hero2__content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-xl);
+  padding: var(--space-5xl) var(--space-xl);
+  max-width: 900px;
+  width: 100%;
+}
+
+/* ──────────────────────────────────────────────
+   SHARED ANIMATION — fade-up pattern
+   All animated elements start hidden and
+   transition to visible when class is added.
+   ────────────────────────────────────────────── */
+.hero2__animate {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity  0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hero2__animate--in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Headline block ── */
+.hero2__headline-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  line-height: 1.0;
+}
+
+/* Line 1: small-caps location tag */
+.hero2__eyebrow {
+  font-family: var(--font-sans);
+  font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-lg);
+  /* inherits .hero2__animate */
+}
+
+/* Lines 2-4: display headlines */
+.hero2__line {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.0;
+  /* Each .hero2__animate has its own delay set inline */
+}
+
+.hero2__line--white {
+  color: var(--color-white);
+}
+
+.hero2__line--gold {
+  font-style: italic;
+  /* Gold shimmer gradient */
+  background: linear-gradient(
+    120deg,
+    var(--color-gold-dark) 0%,
+    var(--color-gold) 35%,
+    var(--color-gold-light) 55%,
+    var(--color-gold) 75%,
+    var(--color-gold-dark) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+  animation-play-state: paused; /* wait until visible */
+}
+
+.hero2--visible .hero2__line--gold {
+  animation-play-state: running;
+}
+
+/* ── Gold horizontal rule ── */
+.hero2__rule {
+  width: min(400px, 80vw);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-gold) 20%,
+    var(--color-gold-light) 50%,
+    var(--color-gold) 80%,
+    transparent 100%
+  );
+  margin: var(--space-sm) auto;
+  /* transition-delay set inline */
+}
+
+/* ── Stats row ── */
+.hero2__stats {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+  /* transition-delay set inline */
+}
+
+.hero2__stat-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xl);
+}
+
+.hero2__stat-sep {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  color: rgba(255, 255, 255, 0.15);
+  align-self: center;
+  line-height: 1;
+  margin-top: -4px;
+}
+
+/* ── CTA buttons row ── */
+.hero2__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  /* transition-delay set inline */
+}
+
+/* Override btn size to be larger on hero */
+.hero2__actions .btn {
+  padding: 1rem 2.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+}
+
+/* ── Audience selector ── */
+.hero2__audience {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  /* transition-delay set inline */
+}
+
+.hero2__audience-label {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: var(--weight-regular);
+  margin-right: var(--space-xs);
+}
+
+.hero2__audience-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.hero2__audience-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 3px 0;
+  border-bottom: 1px solid transparent;
+  transition: var(--transition-fast);
+  letter-spacing: 0.02em;
+}
+
+.hero2__audience-btn:hover {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
+}
+
+.hero2__audience-sep {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: var(--text-base);
+  padding: 0 2px;
+}
+
+/* ──────────────────────────────────────
+   SCROLL CHEVRON — bouncing indicator
+   ────────────────────────────────────── */
+.hero2__scroll-btn {
+  position: absolute;
+  bottom: var(--space-2xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.45);
+  padding: var(--space-sm);
+  transition: color 0.25s ease;
+}
+
+.hero2__scroll-btn:hover {
+  color: var(--color-gold);
+}
+
+.hero2__scroll-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: heroBounce 2.2s ease-in-out infinite;
+}
+
+@keyframes heroBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(8px); }
+}
+
+.hero2__scroll-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* ──────────────────────────────────────
+   GOLD CORNER FRAMES
+   ────────────────────────────────────── */
+.hero2__corner {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 1.5s ease 1s; /* fade in after hero loads */
+}
+
+.hero2--visible .hero2__corner {
+  opacity: 0.45;
+}
+
+.hero2__corner--tl {
+  top: var(--space-xl);
+  left: var(--space-xl);
+  border-top: 1px solid var(--color-gold);
+  border-left: 1px solid var(--color-gold);
+}
+.hero2__corner--tr {
+  top: var(--space-xl);
+  right: var(--space-xl);
+  border-top: 1px solid var(--color-gold);
+  border-right: 1px solid var(--color-gold);
+}
+.hero2__corner--bl {
+  bottom: var(--space-xl);
+  left: var(--space-xl);
+  border-bottom: 1px solid var(--color-gold);
+  border-left: 1px solid var(--color-gold);
+}
+.hero2__corner--br {
+  bottom: var(--space-xl);
+  right: var(--space-xl);
+  border-bottom: 1px solid var(--color-gold);
+  border-right: 1px solid var(--color-gold);
+}
+
+/* ──────────────────────────────────────
+   RESPONSIVE
+   ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero2__line {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+  .hero2__stats {
+    gap: var(--space-md);
+  }
+  .hero2__stat-sep {
+    display: none;
+  }
+  .hero2__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero2__actions .btn {
+    text-align: center;
+    justify-content: center;
+  }
+  .hero2__corner {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero2__content {
+    gap: var(--space-lg);
+    padding: var(--space-4xl) var(--space-lg);
+  }
+}

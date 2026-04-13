@@ -1,0 +1,161 @@
+/* ============================================================
+   LOADING SCREEN
+   ============================================================ */
+
+.loading {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loading);
+  background: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.loading--exit {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Particles ─── */
+.loading__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.loading__particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  opacity: 0;
+  animation: particleFloat 4s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  20%  { opacity: 0.6; transform: translateY(-30px) scale(1); }
+  80%  { opacity: 0.3; transform: translateY(-80px) scale(0.8); }
+  100% { opacity: 0;   transform: translateY(-120px) scale(0); }
+}
+
+.loading__particle--1 { left: 20%; top: 60%; animation-delay: 0s;    animation-duration: 3.5s; }
+.loading__particle--2 { left: 35%; top: 70%; animation-delay: 0.5s;  animation-duration: 4s; }
+.loading__particle--3 { left: 50%; top: 65%; animation-delay: 1s;    animation-duration: 3.8s; }
+.loading__particle--4 { left: 65%; top: 72%; animation-delay: 0.3s;  animation-duration: 4.2s; }
+.loading__particle--5 { left: 78%; top: 60%; animation-delay: 0.7s;  animation-duration: 3.6s; }
+.loading__particle--6 { left: 12%; top: 68%; animation-delay: 1.2s;  animation-duration: 4.4s; }
+
+/* ─── Center Content ─── */
+.loading__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  animation: logoReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ─── Logo ─── */
+.loading__logo-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading__logo-ring {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  animation: spin 8s linear infinite;
+}
+
+.loading__logo-ring::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  border-top-color: var(--color-gold);
+  animation: spin 3s linear infinite;
+}
+
+.loading__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-2xl);
+}
+
+.loading__logo-line {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.loading__logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.loading__logo-moa {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.4em;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 50%, var(--color-gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s linear infinite;
+  text-indent: 0.4em; /* offset for letter-spacing */
+}
+
+.loading__logo-tagline {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ─── Progress Bar ─── */
+.loading__progress {
+  width: 200px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.loading__progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold-light));
+  border-radius: var(--radius-full);
+  transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.loading__progress-bar--fill {
+  width: 100%;
+}
+
+/* ─── Sub text ─── */
+.loading__sub {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  animation: fadeIn 1s ease 0.5s both;
+}
