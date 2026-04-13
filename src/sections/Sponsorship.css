@@ -298,7 +298,28 @@
 }
 
 @media (max-width: 768px) {
+  .spons {
+    padding: var(--space-3xl) 0;
+  }
+  .spons__headline {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+  .spons__layout {
+    gap: var(--space-2xl);
+  }
+  .spons__data-card {
+    padding: var(--space-xl);
+  }
+  .spons__tier-card {
+    padding: var(--space-xl);
+  }
+  .spons__tiers-grid {
+    gap: var(--space-xl);
+  }
   .spons__gallery {
     grid-template-columns: 1fr;
+  }
+  .spons__gallery-info {
+    padding: var(--space-lg);
   }
 }

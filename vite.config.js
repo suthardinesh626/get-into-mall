@@ -16,11 +16,15 @@ export default defineConfig({
     minify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Vendor chunk
-          vendor: ['react', 'react-dom'],
-          // GSAP animations
-          animations: ['gsap', '@gsap/react'],
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('gsap')) {
+              return 'animations';
+            }
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'vendor';
+            }
+          }
         },
       },
     },

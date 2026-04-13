@@ -272,6 +272,30 @@
 }
 
 @media (max-width: 768px) {
+  .leasing {
+    padding: var(--space-3xl) 0;
+  }
+  .leasing__headline {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+  .leasing__layout {
+    gap: var(--space-2xl);
+  }
+  .leasing__tabs {
+    flex-direction: column;
+  }
+  .leasing__tab {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+  }
+  .leasing__panel {
+    padding: var(--space-xl);
+    min-height: auto;
+  }
+  .leasing__form-card {
+    padding: var(--space-xl);
+  }
   .leasing__form-row {
     grid-template-columns: 1fr;
   }
