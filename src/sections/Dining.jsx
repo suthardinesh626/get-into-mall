@@ -1,86 +1,77 @@
 import CTAButton from '../components/CTAButton';
 import './Dining.css';
 
-const CONCEPTS = [
-  { id: 'fine',     emoji: '🍽️', category: 'Fine Dining',       count: '12+', desc: 'White-tablecloth experiences anchored by celebrity chef concepts.' },
-  { id: 'fast',     emoji: '⚡', category: 'Fast Casual',        count: '80+', desc: 'High-volume formats serving the 40M annual visitor stream.' },
-  { id: 'bar',      emoji: '🍸', category: 'Bars & Nightlife',   count: '15+', desc: 'Evening entertainment destinations driving late-night spend.' },
-  { id: 'food',     emoji: '🏪', category: 'Food Hall',          count: '30+', desc: 'Curated marketplace of artisan and regional food concepts.' },
-  { id: 'bakery',   emoji: '🥐', category: 'Specialty & Bakery', count: '20+', desc: 'Destination concepts that fuel social media shareability.' },
-  { id: 'intl',     emoji: '🌍', category: 'International',      count: '25+', desc: 'Global cuisine that mirrors MOA\'s diverse guest base.' },
-];
+/* ─────────────────────────────────────────────────
+   DINING SECTION
+   Magazine-style editorial layout, F&B leasing
+   ───────────────────────────────────────────────── */
 
-const DINING_STATS = [
-  { value: '$18M+', label: 'Monthly F&B Revenue' },
-  { value: '4.8h',  label: 'Avg. Dwell Time' },
-  { value: '62%',   label: 'Guests Dine on Visit' },
-  { value: '180+',  label: 'F&B Locations' },
+const CATEGORIES = [
+  'Fast Casual', 'Fine Dining', 'Celebrity Chef', 'Food Hall', 'Late Night', 'Family'
 ];
 
 export default function Dining() {
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="dining" className="section dining">
-      <div className="dining__bg" aria-hidden="true">
-        <div className="dining__bg-gradient" />
-      </div>
+      <div className="section-inner dining__layout">
+        
+        {/* ── Left: Large Hero Image ── */}
+        <div className="dining__image-col reveal">
+          <div className="dining__image-wrapper">
+             <img 
+               src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200" 
+               alt="Fine dining experience placeholder" 
+               className="dining__image"
+               loading="lazy"
+             />
+             <div className="dining__image-overlay" aria-hidden="true" />
+          </div>
+        </div>
 
-      <div className="dining__inner section-inner">
-        {/* Header */}
-        <div className="dining__header">
-          <span className="gold-label reveal">For F&B Operators</span>
-          <h2 className="display-2 reveal delay-100">
-            Feed{' '}
-            <span className="text-gold">Millions</span>
+        {/* ── Right: Content ── */}
+        <div className="dining__content-col">
+          <span className="gold-label reveal delay-100">The Culinary Destination</span>
+          
+          <h2 className="dining__headline reveal delay-200">
+            Dining That Keeps <br/>
+            <span className="text-gold">Them Here Longer.</span>
           </h2>
-          <p className="body-lg reveal delay-200">
-            MOA's food & beverage ecosystem is a destination in its own right —
-            driving 62% dining participation per visit and generating over $18M monthly.
+
+          <p className="body-lg reveal delay-300">
+            With over 50 options ranging from celebrity chef concepts to the newly renovated North Garden food court, dining is a primary driver of visitation—not just an afterthought.
           </p>
-        </div>
 
-        {/* Stats */}
-        <div className="dining__stats reveal delay-300">
-          {DINING_STATS.map((s) => (
-            <div key={s.label} className="dining__stat">
-              <div className="dining__stat-value stat-number">{s.value}</div>
-              <div className="dining__stat-label">{s.label}</div>
+          <div className="dining__stats-highlight glass-card reveal delay-400">
+            <span className="dining__stat-percent">40%</span>
+            <span className="dining__stat-desc">longer dwell time when visitors dine on-site.</span>
+          </div>
+
+          <div className="dining__categories reveal delay-500">
+             {CATEGORIES.map(cat => (
+               <span key={cat} className="dining__category-pill">{cat}</span>
+             ))}
+          </div>
+
+          <div className="dining__opportunity reveal delay-600">
+            <div className="dining__opp-card">
+              <h3 className="dining__opp-title">F&B Leasing Opportunities</h3>
+              <p className="dining__opp-desc">Restaurant, café, and food hall concepts welcome.</p>
+              <CTAButton 
+                variant="primary" 
+                onClick={() => scrollTo('partners')}
+                className="dining__cta"
+              >
+                EXPLORE F&B SPACES
+              </CTAButton>
             </div>
-          ))}
+          </div>
+
         </div>
 
-        {/* Concept grid */}
-        <div className="dining__grid">
-          {CONCEPTS.map((concept, i) => (
-            <div
-              key={concept.id}
-              id={`dining-concept-${concept.id}`}
-              className={`dining__concept glass-card reveal delay-${(i + 1) * 100}`}
-            >
-              <div className="dining__concept-emoji" aria-hidden="true">{concept.emoji}</div>
-              <div className="dining__concept-category">{concept.category}</div>
-              <div className="dining__concept-count">{concept.count} concepts</div>
-              <p className="dining__concept-desc">{concept.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="dining__cta reveal">
-          <CTAButton
-            id="dining-cta-inquire"
-            variant="primary"
-            href="mailto:dining@mallofamerica.com"
-          >
-            F&B Leasing Inquiry
-          </CTAButton>
-          <CTAButton
-            id="dining-cta-tour"
-            variant="outline"
-            href="mailto:dining@mallofamerica.com"
-          >
-            Schedule Site Tour
-          </CTAButton>
-        </div>
       </div>
     </section>
   );

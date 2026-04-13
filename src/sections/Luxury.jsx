@@ -1,104 +1,69 @@
-import CTAButton from '../components/CTAButton';
 import './Luxury.css';
 
-const BRANDS = [
-  'Louis Vuitton', 'Coach', 'Nordstrom', 'Anthropologie',
-  'Tesla', 'Apple', 'Lululemon', 'Sephora',
-  'Hugo Boss', 'Kate Spade', 'Pandora', 'TAG Heuer',
-];
+/* ─────────────────────────────────────────────────
+   LUXURY SECTION
+   Pure black boutique feel, brand showcase grid, stats
+   ───────────────────────────────────────────────── */
 
-const PROOF_POINTS = [
-  {
-    id: 'lv',
-    brand: 'Louis Vuitton',
-    result: '340%',
-    metric: 'sales growth in Year 1',
-    quote: 'MOA delivers customers who arrive with intention. It is the rare mall where luxury resonates.',
-  },
-  {
-    id: 'tesla',
-    brand: 'Tesla Motors',
-    result: '$28M',
-    metric: 'in test drives in 18 months',
-    quote: 'The foot traffic is unlike any location in our portfolio. MOA is our highest-converting showroom.',
-  },
-  {
-    id: 'apple',
-    brand: 'Apple Inc.',
-    result: '4.8★',
-    metric: 'customer satisfaction score',
-    quote: 'MOA shoppers are tech-savvy and spend-ready. Our Genius Bar books out weeks in advance.',
-  },
+const BRANDS = [
+  { name: 'Tiffany & Co.', category: 'Fine Jewelry' },
+  { name: 'Coach', category: 'Leather Goods' },
+  { name: 'Michael Kors', category: 'Fashion' },
+  { name: 'Kate Spade', category: 'Accessories' },
+  { name: 'Pandora', category: 'Jewelry' },
+  { name: 'Swarovski', category: 'Crystal & Lifestyle' },
 ];
 
 export default function Luxury() {
   return (
     <section id="luxury" className="section luxury">
-      {/* Background */}
-      <div className="luxury__bg" aria-hidden="true">
-        <div className="luxury__bg-texture" />
-        <div className="luxury__bg-gradient" />
-      </div>
-
-      <div className="luxury__inner section-inner">
-        {/* Header */}
-        <div className="luxury__header">
-          <span className="gold-label reveal">Luxury & Premium</span>
-          <h2 className="display-2 reveal delay-100">
-            Where Premium{' '}
-            <br />
-            <em className="text-gold">Brands Belong</em>
+      <div className="section-inner luxury__inner">
+        
+        {/* ── Headline ── */}
+        <div className="luxury__header reveal">
+          <h2 className="luxury__headline">
+            Where Premium Brands<br />
+            Find <em className="luxury__headline-em">Premium Audiences.</em>
           </h2>
-          <p className="body-lg reveal delay-200">
-            A curated ecosystem of 500+ tenants — including 80+ luxury and aspirational brands
-            that drive average transaction values 3× above national mall benchmarks.
-          </p>
         </div>
 
-        {/* Brand grid */}
-        <div className="luxury__brand-grid reveal delay-300" aria-label="Partner brands">
-          {BRANDS.map((brand) => (
-            <div key={brand} className="luxury__brand-pill">
-              {brand}
-            </div>
-          ))}
-        </div>
-
-        {/* Social proof */}
-        <div className="luxury__proof">
-          {PROOF_POINTS.map((pt, i) => (
-            <article
-              key={pt.id}
-              id={`luxury-proof-${pt.id}`}
-              className={`luxury__proof-card glass-card reveal delay-${(i + 1) * 100}`}
-            >
-              <div className="luxury__proof-header">
-                <div className="luxury__proof-brand">{pt.brand}</div>
-                <div className="luxury__proof-result">
-                  <span className="stat-number">{pt.result}</span>
-                  <span className="luxury__proof-metric">{pt.metric}</span>
-                </div>
+        {/* ── Brand Grid ── */}
+        <div className="luxury__brands reveal delay-200">
+          <div className="luxury__grid">
+            {BRANDS.map((brand, i) => (
+              <div key={i} className="luxury__brand-card">
+                <h3 className="luxury__brand-name">{brand.name}</h3>
+                <span className="luxury__brand-category">{brand.category}</span>
               </div>
-              <blockquote className="luxury__proof-quote">
-                "{pt.quote}"
-              </blockquote>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* CTA */}
-        <div className="luxury__cta reveal">
-          <p className="luxury__cta-text">
-            Interested in a luxury positioning at MOA?
-          </p>
-          <CTAButton
-            id="luxury-cta-inquire"
-            variant="primary"
-            href="mailto:luxuryleasing@mallofamerica.com"
-          >
-            Luxury Leasing Inquiry
-          </CTAButton>
+        {/* ── Luxury Stats ── */}
+        <div className="luxury__stats reveal delay-300">
+          <div className="luxury__stat-item">
+            <span className="luxury__stat-number">$150K+</span>
+            <span className="luxury__stat-label">Average Household Income</span>
+          </div>
+          <div className="luxury__stat-divider" aria-hidden="true" />
+          <div className="luxury__stat-item">
+            <span className="luxury__stat-number">35-55</span>
+            <span className="luxury__stat-label">Core Luxury Shopper Age</span>
+          </div>
+          <div className="luxury__stat-divider" aria-hidden="true" />
+          <div className="luxury__stat-item">
+            <span className="luxury__stat-number">3.2x</span>
+            <span className="luxury__stat-label">Higher Spend vs. Average</span>
+          </div>
         </div>
+
+        {/* ── Quote ── */}
+        <div className="luxury__quote-wrapper reveal delay-400">
+          <blockquote className="luxury__quote">
+            "The Collection at Mall of America delivers the audience luxury brands demand — concentrated, high-intent, and ready to spend."
+          </blockquote>
+        </div>
+
       </div>
     </section>
   );
