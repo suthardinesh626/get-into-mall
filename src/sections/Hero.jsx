@@ -30,10 +30,13 @@ const LINES = [
 
 export default function Hero() {
   const [heroVisible, setHeroVisible] = useState(false);
+  const [textHidden, setTextHidden] = useState(false);
+  const [isMuted, setIsMuted] = useState(true); // starts muted (YouTube autoplay requires it)
   const [linesVisible, setLinesVisible] = useState(
     LINES.map(() => false)
   );
   const lineTimers = useRef([]);
+  const iframeRef = useRef(null); // ref to YouTube iframe for postMessage
 
   /* ── On mount: fade in hero, then stagger text lines ── */
   useEffect(() => {
@@ -62,6 +65,18 @@ export default function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  /* ── Send postMessage to YouTube iframe to mute/unmute ── */
+  const toggleMute = () => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+    const command = isMuted ? 'unMute' : 'mute';
+    iframe.contentWindow?.postMessage(
+      JSON.stringify({ event: 'command', func: command, args: [] }),
+      '*'
+    );
+    setIsMuted(prev => !prev);
+  };
+
   return (
     <section
       id="hero"
@@ -71,12 +86,41 @@ export default function Hero() {
       {/* ── Layer 1 + 2: video background + overlay ── */}
       <VideoBackground
         src={YOUTUBE_SRC}
-        overlayOpacity={0.60}
+        overlayOpacity={textHidden ? 0.25 : 0.60}
         gradientOverlay
+        iframeRef={iframeRef}
       />
 
+      {/* ── Watch Video toggle button (top-right) ── */}
+      <div className="hero2__watch-wrap">
+        <button
+          id="hero-watch-video-btn"
+          className={`hero2__watch-btn ${textHidden ? 'hero2__watch-btn--active' : ''}`}
+          onClick={() => setTextHidden(prev => !prev)}
+          aria-label={textHidden ? 'Show content' : 'Watch video fullscreen'}
+        >
+          <span className="hero2__watch-icon" aria-hidden="true">
+            {textHidden ? (
+              /* Eye-off icon when text is hidden */
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M1 1l22 22" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+              </svg>
+            ) : (
+              /* Play icon when text is visible */
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/>
+                <path d="M10 8l6 4-6 4V8z" fill="currentColor"/>
+              </svg>
+            )}
+          </span>
+          {textHidden ? 'Show Content' : 'Watch Video'}
+        </button>
+      </div>
+
       {/* ── Layer 3: Content ── */}
-      <div className="hero2__content" role="main">
+      <div className={`hero2__content ${textHidden ? 'hero2__content--hidden' : ''}`} role="main">
 
         {/* Headline block */}
         <div className="hero2__headline-block">
@@ -197,6 +241,31 @@ export default function Hero() {
       <div className="hero2__corner hero2__corner--tr" aria-hidden="true"/>
       <div className="hero2__corner hero2__corner--bl" aria-hidden="true"/>
       <div className="hero2__corner hero2__corner--br" aria-hidden="true"/>
+
+      {/* ── Mute / Unmute button (bottom-right) ── */}
+      <button
+        id="hero-mute-btn"
+        className={`hero2__mute-btn ${!isMuted ? 'hero2__mute-btn--unmuted' : ''}`}
+        onClick={toggleMute}
+        aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+        title={isMuted ? 'Unmute video' : 'Mute video'}
+      >
+        {isMuted ? (
+          /* Muted — speaker with X */
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M23 9l-6 6M17 9l6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+          </svg>
+        ) : (
+          /* Unmuted — speaker with waves */
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M15.54 8.46a5 5 0 010 7.07" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            <path d="M19.07 4.93a10 10 0 010 14.14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+          </svg>
+        )}
+        <span className="hero2__mute-label">{isMuted ? 'Unmute' : 'Mute'}</span>
+      </button>
     </section>
   );
 }

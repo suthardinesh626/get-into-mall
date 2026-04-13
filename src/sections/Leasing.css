@@ -16,18 +16,20 @@
 
 .leasing__headline {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.75rem, 6vw, 4rem); /* was 2.5rem min — too large for small phones */
   font-weight: var(--weight-bold);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;             /* reduced — wide tracking causes overflow */
   margin-top: var(--space-sm);
+  word-break: break-word;              /* prevents long words from blowing out */
+  overflow-wrap: break-word;
 }
 
 .leasing__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4xl);
-  align-items: start;
+  align-items: stretch; /* Both columns match the tallest one — no overflow */
 }
 
 /* ── 1. Dynamic Content Panel (Left) ── */
@@ -82,14 +84,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
-  min-height: 380px; /* Avoid layout shifts when switching tabs */
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .leasing__panel-title {
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-size: clamp(1.1rem, 4vw, var(--text-2xl)); /* was fixed text-2xl */
   font-weight: var(--weight-bold);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;             /* was 0.05em — too wide on small screens */
+  word-break: break-word;
 }
 
 .leasing__panel-desc {
@@ -134,8 +138,8 @@
 }
 
 .leasing__panel-action {
-  margin-top: auto;
   padding-top: var(--space-lg);
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
 .leasing__panel-btn {
@@ -145,9 +149,10 @@
 
 /* ── 2. Contact Form (Right) ── */
 .leasing__form-col {
-  /* To align nicely if left col is taller */
-  position: sticky;
-  top: 100px; 
+  /* Stretch to match left column height — no sticky which caused overflow */
+  position: static;
+  display: flex;
+  flex-direction: column;
 }
 
 .leasing__form-card {
@@ -159,6 +164,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
+  flex: 1; /* Fill the height of the grid cell */
 }
 
 .leasing__form-title {
@@ -284,6 +290,18 @@
   .leasing__tabs {
     flex-direction: column;
   }
+  .leasing__stat-label {
+    letter-spacing: 0.04em;   /* was 0.1em — collapses multi-word labels on tiny screens */
+  }
+   .leasing__form-title {
+    font-size: clamp(1.2rem, 5vw, var(--text-2xl));
+    word-break: break-word;
+  }
+
+  .leasing__tab {
+    letter-spacing: 0.04em;   /* was inherited wide tracking, wraps badly on 320px screens */
+  }
+
   .leasing__tab {
     width: 100%;
     text-align: center;

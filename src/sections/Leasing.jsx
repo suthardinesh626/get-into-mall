@@ -11,13 +11,13 @@ const LEASING_PATHS = [
   {
     id: 'luxury',
     title: 'LUXURY & PREMIUM',
-    desc: 'The Collection wing — 50+ luxury brands, curated environment',
+    desc: '50+ luxury brands, curated environment',
     stats: [
       { label: 'Avg Lease', value: '2,000–8,000 sq ft' },
       { label: 'Customer Profile', value: 'HHI $150K+' },
       { label: 'Opportunity', value: '3 spaces available' }
     ],
-    cta: 'Request Luxury Leasing Package'
+    cta: 'Request Luxury Leas'
   },
   {
     id: 'retail',
@@ -39,7 +39,7 @@ const LEASING_PATHS = [
       { label: 'Audience', value: 'Captive dining audience — 40M annual visitors' },
       { label: 'Opportunity', value: '8 spaces available' }
     ],
-    cta: 'Explore F&B Opportunities'
+    cta: 'F&B Opportunities'
   },
   {
     id: 'flex',
@@ -50,7 +50,7 @@ const LEASING_PATHS = [
       { label: 'Benefits', value: 'Test your concept before committing to permanent lease' },
       { label: 'Opportunity', value: '15+ positions available' }
     ],
-    cta: 'Apply for Pop-Up Program'
+    cta: 'Apply for Program'
   }
 ];
 

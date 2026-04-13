@@ -52,7 +52,7 @@ const TIERS = [
       'Social amplification (5M+ reach)',
       'Exclusivity in category'
     ],
-    cta: 'Inquire About Presenting'
+    cta: 'Inquire Presenting'
   },
   {
     id: 'activation',
