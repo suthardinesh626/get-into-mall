@@ -1,128 +1,223 @@
+import { useState, useEffect, useRef } from 'react';
 import CTAButton from '../components/CTAButton';
 import './Sponsorship.css';
 
-const PACKAGES = [
+/* ─────────────────────────────────────────────────
+   SPONSORSHIP SECTION
+   Data panel (CSS bar charts), Partnership Tiers, Gallery
+   ───────────────────────────────────────────────── */
+
+const DATA_POINTS = [
   {
-    id: 'presenting',
-    tier: 'Presenting',
-    price: '$1.2M+',
-    period: 'annually',
-    highlight: true,
-    includes: [
-      'Naming rights on major anchor zone',
-      '50+ digital display placements',
-      'Exclusive 30-day holiday activation',
-      'Custom branded experience space',
-      'Co-marketing: TV, digital, social',
-      'VIP event access & hospitality',
-      'Annual foot traffic guarantee: 40M',
-    ],
+    category: 'Age Breakdown',
+    bars: [
+      { label: '18-34', percent: 38 },
+      { label: '35-54', percent: 31 },
+      { label: '55+', percent: 21 },
+      { label: 'Under 18', percent: 10 }
+    ]
   },
   {
-    id: 'premier',
-    tier: 'Premier Partner',
-    price: '$400K–800K',
-    period: 'annually',
-    includes: [
-      'Branded zone with physical presence',
-      '24 targeted digital placements',
-      'Seasonal activation windows',
-      'Co-branded email to 2M subscribers',
-      'Social amplification package',
-      'Event hosting priority access',
-    ],
+    category: 'Gender',
+    bars: [
+      { label: 'Female', percent: 58 },
+      { label: 'Male', percent: 42 }
+    ]
   },
   {
-    id: 'seasonal',
-    tier: 'Seasonal Sponsor',
-    price: '$75K–200K',
-    period: 'per season',
-    includes: [
-      'Peak season activation space',
-      '8 targeted digital placements',
-      'Holiday campaign inclusion',
-      'Social media feature posts',
-      'On-site branding package',
-    ],
+    category: 'Household Income',
+    bars: [
+      { label: '$75K+', percent: 35 },
+      { label: '$100K+', percent: 22 }
+    ]
   },
+  {
+    category: 'Visit Frequency & Intent',
+    bars: [
+      { label: 'Visit 4+ times per year', percent: 45 },
+      { label: 'Arrive planning to purchase', percent: 73 }
+    ]
+  }
 ];
 
-const CHANNELS = [
-  { id: 's-digital', name: 'Digital Signage', desc: '400+ screens' },
-  { id: 's-social',  name: 'Social Reach',    desc: '2.1M followers' },
-  { id: 's-email',   name: 'Email List',       desc: '2M subscribers' },
-  { id: 's-app',     name: 'MOA App',          desc: '800K users' },
-  { id: 's-pr',      name: 'Earned Media',     desc: '2.1B impressions' },
-  { id: 's-events',  name: 'Live Events',      desc: '400+ per year' },
+const TIERS = [
+  {
+    id: 'presenting',
+    title: 'PRESENTING PARTNER',
+    tagline: 'The highest visibility position',
+    bullets: [
+      'Logo on all property signage',
+      '52-week rotunda activation rights',
+      'Digital display network (400+ screens)',
+      'Social amplification (5M+ reach)',
+      'Exclusivity in category'
+    ],
+    cta: 'Inquire About Presenting'
+  },
+  {
+    id: 'activation',
+    title: 'ACTIVATION PARTNER',
+    tagline: 'Own a moment, own a season',
+    bullets: [
+      'Dedicated activation space 4-12 weeks',
+      'Co-branded content production',
+      'In-mall event hosting rights',
+      'Targeted audience data access'
+    ],
+    cta: 'Plan Your Activation'
+  },
+  {
+    id: 'media',
+    title: 'MEDIA PARTNER',
+    tagline: 'Reach 40M without the overhead',
+    bullets: [
+      'Digital display network access',
+      'Sponsored content in mall publications',
+      'Email list co-marketing (1.2M subscribers)'
+    ],
+    cta: 'Explore Media Options'
+  }
+];
+
+import imgMajorAutoBrand from '../image/Major_Auto_Brand.png';
+import imgGlobalTechCompany from '../image/Global_Tech_Company.png';
+import imgFashionWeekPopUp from '../image/Fashion_Week_Pop-Up.png';
+
+const GALLERY = [
+  {
+    brand: 'Major Auto Brand',
+    desc: 'New Model Launch in the Rotunda',
+    stats: '15,000 leads generated in 3 days',
+    img: imgMajorAutoBrand
+  },
+  {
+    brand: 'Global Tech Company',
+    desc: 'Interactive Product Experience, 6 Weeks',
+    stats: '2.5M impressions, 400K interactions',
+    img: imgGlobalTechCompany
+  },
+  {
+    brand: 'Fashion Week Pop-Up',
+    desc: '4-Week Limited Run',
+    stats: '200% Target Foot Traffic Achieved',
+    img: imgFashionWeekPopUp
+  }
 ];
 
 export default function Sponsorship() {
+  const [barsAnimated, setBarsAnimated] = useState(false);
+  const dataRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !barsAnimated) {
+          setBarsAnimated(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (dataRef.current) observer.observe(dataRef.current);
+    return () => observer.disconnect();
+  }, [barsAnimated]);
+
   return (
-    <section id="sponsorship" className="section sponsorship">
-      <div className="sponsorship__bg" aria-hidden="true">
-        <div className="sponsorship__bg-gradient" />
+    <section id="sponsors" className="section spons">
+      
+      <div className="section-inner">
+        <div className="spons__header reveal">
+          <span className="gold-label">Corporate Sponsorships</span>
+          <h2 className="spons__headline">
+            Not Just Billboard Space. <br/>
+            <span className="text-gold">Deep Brand Immersion.</span>
+          </h2>
+        </div>
       </div>
 
-      <div className="sponsorship__inner section-inner">
-        {/* Header */}
-        <div className="sponsorship__header">
-          <span className="gold-label reveal">For Corporate Sponsors</span>
-          <h2 className="display-2 reveal delay-100">
-            Ownership-Level{' '}
-            <span className="text-gold">Brand Presence</span>
-          </h2>
-          <p className="body-lg reveal delay-200">
-            Sponsorship at MOA isn't advertising — it's ownership. Build category dominance
-            in front of 40M guests who are already in a spending mindset.
-          </p>
+      <div className="spons__layout section-inner">
+        
+        {/* ── 1. Audience Data Panel ── */}
+        <div className="spons__data-col reveal delay-200" ref={dataRef}>
+          <div className="spons__data-card glass-card">
+            <h3 className="spons__data-title">Audience Demographics</h3>
+            <p className="spons__data-sub">The scale of a stadium, the intent of a flagship store.</p>
+            
+            <div className="spons__charts">
+              {DATA_POINTS.map((group, i) => (
+                <div key={i} className="spons__chart-group">
+                  <h4 className="spons__chart-group-title">{group.category}</h4>
+                  <div className="spons__bar-list">
+                    {group.bars.map((bar, j) => (
+                      <div key={j} className="spons__bar-item">
+                        <div className="spons__bar-labels">
+                          <span className="spons__bar-label">{bar.label}</span>
+                          <span className="spons__bar-value">{bar.percent}%</span>
+                        </div>
+                        <div className="spons__bar-bg">
+                          <div 
+                            className={`spons__bar-fill ${barsAnimated ? 'spons__bar-fill--animate' : ''}`}
+                            style={{ '--fill-width': `${bar.percent}%` }}
+                            aria-hidden="true"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Channel grid */}
-        <div className="sponsorship__channels reveal delay-300">
-          {CHANNELS.map((ch) => (
-            <div key={ch.id} id={ch.id} className="sponsorship__channel">
-              <div className="sponsorship__channel-name">{ch.name}</div>
-              <div className="sponsorship__channel-desc">{ch.desc}</div>
+        {/* ── 2. Partnership Tiers ── */}
+        <div className="spons__tiers-col reveal delay-300">
+          <div className="spons__tiers-grid">
+            {TIERS.map((tier) => (
+              <div key={tier.id} className="spons__tier-card">
+                <div className="spons__tier-header">
+                  <h3 className="spons__tier-title text-gold">{tier.title}</h3>
+                  <p className="spons__tier-tagline">{tier.tagline}</p>
+                </div>
+                <ul className="spons__tier-list">
+                  {tier.bullets.map((bullet, i) => (
+                    <li key={i} className="spons__tier-li">
+                      <span className="spons__tier-bullet-icon" aria-hidden="true">✦</span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="spons__tier-action">
+                  <CTAButton variant="outline" className="spons__tier-btn">{tier.cta}</CTAButton>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      {/* ── 3. Activation Gallery ── */}
+      <div className="section-inner spons__gallery-wrap reveal delay-400">
+        <h3 className="spons__gallery-title">Past Activations</h3>
+        <div className="spons__gallery">
+          {GALLERY.map((item, i) => (
+            <div key={i} className="spons__gallery-card glass-card">
+              <div className="spons__gallery-img-wrapper" aria-hidden="true">
+                <img src={item.img} alt={item.brand} className="spons__gallery-img" />
+              </div>
+              <div className="spons__gallery-info">
+                <h4 className="spons__gallery-brand">{item.brand}</h4>
+                <p className="spons__gallery-desc">{item.desc}</p>
+                <div className="spons__gallery-stats">
+                  {/* <span className="spons__gallery-stat-icon">📈</span> */}
+                  <span className="spons__gallery-stat-text">{item.stats}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
-
-        {/* Packages */}
-        <div className="sponsorship__packages">
-          {PACKAGES.map((pkg, i) => (
-            <article
-              key={pkg.id}
-              id={`sponsorship-${pkg.id}`}
-              className={`sponsorship__package ${pkg.highlight ? 'sponsorship__package--highlight' : 'glass-card'} reveal delay-${(i + 1) * 100}`}
-            >
-              {pkg.highlight && (
-                <div className="sponsorship__package-badge">Most Impactful</div>
-              )}
-              <div className="sponsorship__package-tier">{pkg.tier}</div>
-              <div className="sponsorship__package-price">
-                <span className="sponsorship__package-amount">{pkg.price}</span>
-                <span className="sponsorship__package-period">{pkg.period}</span>
-              </div>
-              <ul className="sponsorship__package-includes">
-                {pkg.includes.map((item) => (
-                  <li key={item} className="sponsorship__package-item">
-                    <span className="sponsorship__package-bullet" aria-hidden="true">✦</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <CTAButton
-                id={`sponsorship-cta-${pkg.id}`}
-                variant={pkg.highlight ? 'primary' : 'outline'}
-                href="mailto:sponsorships@mallofamerica.com"
-                className="sponsorship__package-cta"
-              >
-                Get Proposal
-              </CTAButton>
-            </article>
-          ))}
-        </div>
       </div>
+
     </section>
   );
 }

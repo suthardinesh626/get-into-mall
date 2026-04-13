@@ -1,184 +1,163 @@
+/* ============================================================
+   RETAIL SECTION
+   ============================================================ */
+
 .retail {
   background: var(--color-surface);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: var(--space-5xl) 0;
+  gap: var(--space-3xl);
+  overflow: hidden; /* Prevent horizontal scrollbar on the whole section due to marquee */
 }
 
-.retail__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.retail__bg-gradient {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(201, 168, 76, 0.07) 0%, transparent 70%),
-    var(--color-surface);
-}
-
-.retail__inner {
-  position: relative;
-  z-index: var(--z-elevated);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4xl);
-  width: 100%;
-}
-
-/* ─── Header ─── */
-.retail__header { max-width: 600px; }
-
-/* ─── Metrics bar ─── */
-.retail__metrics {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-
-.retail__metric {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-xl);
-  gap: var(--space-xs);
-  border-right: 1px solid var(--color-border);
+.retail__header {
   text-align: center;
-  transition: var(--transition-fast);
 }
 
-.retail__metric:last-child { border-right: none; }
-
-.retail__metric:hover {
-  background: rgba(201, 168, 76, 0.04);
-}
-
-.retail__metric-value {
-  font-family: var(--font-mono);
-  font-size: clamp(1.75rem, 3vw, 3rem);
-  font-weight: var(--weight-bold);
-  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
-}
-
-.retail__metric-label {
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-
-/* ─── Cards ─── */
-.retail__cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
-}
-
-.retail__card {
-  padding: var(--space-2xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
+/* ── Marquee ── */
+.retail__marquee-container {
+  width: 100vw;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-md) 0;
   position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  white-space: nowrap;
 }
 
-.retail__card-tag {
-  position: absolute;
-  top: var(--space-lg);
-  right: var(--space-lg);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  letter-spacing: 0.12em;
+.retail__marquee {
+  display: inline-flex;
+  animation: scrollMarquee 40s linear infinite;
+}
+
+.retail__marquee-item {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-muted);
+  padding: 0 var(--space-2xl);
   text-transform: uppercase;
-  color: var(--color-black);
-  background: var(--color-gold);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-}
-
-.retail__card-size {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  color: var(--color-gold);
   letter-spacing: 0.05em;
 }
 
-.retail__card-type {
-  font-family: var(--font-sans);
-  font-size: var(--text-xl);
-  font-weight: var(--weight-semibold);
-  color: var(--color-text-primary);
-  letter-spacing: -0.01em;
+@keyframes scrollMarquee {
+  0%   { transform: translateX(0); }
+  /* Translate by half the width since we duplicated the array items */
+  100% { transform: translateX(-50%); } 
 }
 
-.retail__card-desc {
-  font-size: var(--text-sm);
-  line-height: 1.75;
-  color: var(--color-text-secondary);
-  flex: 1;
+/* ── Horizontal Scroll ── */
+.retail__scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 var(--space-2xl) var(--space-2xl);
+  /* Hide scrollbar */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+.retail__scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
-.retail__card-highlights {
-  list-style: none;
+.retail__scroll-track {
+  display: inline-flex;
+  gap: var(--space-xl);
+  padding-right: var(--space-2xl); /* ensure spacing at end of scroll */
+  /* This ensures the cards don't shrink */
+  min-width: min-content; 
+}
+
+.retail__card {
+  width: min(80vw, 400px); /* Responsive width but maxes out */
+  min-height: 280px;
+  padding: var(--space-2xl);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.retail__card-highlight {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-}
-
-.retail__card-check {
-  color: var(--color-gold);
-  font-size: 10px;
+  justify-content: flex-start;
+  gap: var(--space-md);
   flex-shrink: 0;
+  white-space: normal; /* Override the container's nowrap if we use it, but here it's flex */
+  scroll-snap-align: start;
 }
 
-.retail__card-cta {
-  margin-top: auto;
-  align-self: flex-start;
+.retail__card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
 }
 
-/* ─── Footer ─── */
-.retail__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-xl) var(--space-2xl);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  gap: var(--space-xl);
-}
-
-.retail__footer-text {
+.retail__card-body {
   font-size: var(--text-base);
   color: var(--color-text-secondary);
-  max-width: 500px;
+  line-height: 1.6;
 }
 
-/* ─── Responsive ─── */
-@media (max-width: 1100px) {
-  .retail__cards   { grid-template-columns: 1fr 1fr; }
-  .retail__metrics { grid-template-columns: repeat(2, 1fr); }
+.retail__card-action {
+  margin-top: auto;
 }
 
-@media (max-width: 700px) {
-  .retail__cards  { grid-template-columns: 1fr; }
-  .retail__footer { flex-direction: column; align-items: flex-start; }
+.retail__card-link {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.retail__card-link:hover {
+  color: var(--color-gold-light);
+}
+
+/* ── CTA Card ── */
+.retail__cta-card {
+  background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 50%, var(--color-gold-light) 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4xl) var(--space-2xl);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  box-shadow: 0 20px 40px rgba(201, 168, 76, 0.2);
+}
+
+.retail__cta-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-black);
+  letter-spacing: -0.02em;
+}
+
+.retail__cta-sub {
+  font-size: var(--text-lg);
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: var(--weight-medium);
+  margin-bottom: var(--space-md);
+}
+
+/* Specific override for CTA button inside this card if needed, but primary variant is already black on gold. 
+   Wait, standard primary is gold. We need a black button here for contrast, or the default primary is okay if it's meant to be gold? 
+   Requirements said: "Button: 'REQUEST LEASING INFO' (black text on gold)". Wait, if the background is gold, a gold button will disappear!
+   Let's make a custom class styling for this button specifically to ensure it's black. */
+.retail__cta-btn {
+  background: var(--color-black) !important;
+  color: var(--color-gold) !important;
+}
+
+.retail__cta-btn::before {
+  background: var(--color-surface-2) !important;
+}
+.retail__cta-btn:hover {
+   color: var(--color-gold-light) !important;
 }

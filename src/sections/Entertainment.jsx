@@ -1,105 +1,124 @@
 import CTAButton from '../components/CTAButton';
 import './Entertainment.css';
 
+/* ─────────────────────────────────────────────────
+   ENTERTAINMENT SECTION
+   Theme-park style, high energy, colored accents
+   ───────────────────────────────────────────────── */
+
 const ATTRACTIONS = [
   {
-    id: 'nickelodeon',
-    name: 'Nickelodeon Universe®',
-    tagline: 'The Largest Indoor Theme Park in the USA',
-    features: ['27 rides & attractions', '7 acres indoor', 'Family & thrill rides', 'Character experiences'],
-    accent: '#FF6B35',
+    title: 'Nickelodeon Universe',
+    stats: '7 Acres · 27 Rides · World\'s Largest Indoor Coaster',
+    desc: 'The center of the mall and the heart of the action.',
+    color: 'var(--color-brand-orange, #ff6a00)', /* Nick orange */
+    icon: '🎢'
   },
   {
-    id: 'sealife',
-    name: 'SEA LIFE Minnesota',
-    tagline: 'An Underwater World of Wonder',
-    features: ['Ocean tunnel walk-through', '10,000+ sea creatures', 'Interactive touch pools', 'Conservation programs'],
-    accent: '#0EA5E9',
+    title: 'SEA LIFE Aquarium',
+    stats: '10,000+ Sea Creatures · Interactive Exhibits',
+    desc: 'A 300-foot ocean tunnel right under the mall.',
+    color: 'var(--color-brand-blue, #00a8e1)', /* Sea Life blue */
+    icon: '🦈'
   },
   {
-    id: 'miniature',
-    name: 'Crayola Experience',
-    tagline: 'Where Creativity Has No Limits',
-    features: ['25+ hands-on activities', 'Custom crayon making', 'Art studio experiences', 'Birthday party venue'],
-    accent: '#FACC15',
+    title: 'FlyOver America',
+    stats: '360° Flight Simulation · 40-Min Experience',
+    desc: 'Soar above iconic landscapes with wind and sensory effects.',
+    color: 'var(--color-brand-teal, #00d2ff)', /* Sky blue/teal */
+    icon: '✈️'
   },
   {
-    id: 'escape',
-    name: 'FlyOver America',
-    tagline: 'Soar Above the American Landscape',
-    features: ['Reality flight ride', 'Sphere film experience', '4D sensory effects', 'Multi-screen immersion'],
-    accent: '#C9A84C',
+    title: 'Crayola Experience',
+    stats: '26 Hands-On Activities · Family Destination',
+    desc: 'A vibrant, interactive playground for creativity.',
+    color: 'var(--color-brand-yellow, #ffc107)', /* Yellow */
+    icon: '🖍️'
   },
+  {
+    title: 'Entertainment District',
+    stats: 'Cinema · Bowling · Escape Rooms · Mini Golf',
+    desc: 'Late-night activities that keep the energy high after shopping.',
+    color: 'var(--color-brand-purple, #9c27b0)', /* Purple */
+    icon: '🎳'
+  }
 ];
 
 export default function Entertainment() {
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section id="entertainment" className="section entertainment">
-      <div className="entertainment__bg" aria-hidden="true">
-        <div className="entertainment__bg-gradient" />
-        <div className="entertainment__bg-grid" />
+    <section id="entertainment" className="section ent">
+      
+      {/* ── Background Effects ── */}
+      <div className="ent__lights" aria-hidden="true">
+        <div className="ent__light ent__light--1" />
+        <div className="ent__light ent__light--2" />
+        <div className="ent__light ent__light--3" />
       </div>
 
-      <div className="entertainment__inner section-inner">
-        {/* Header */}
-        <div className="entertainment__header">
-          <span className="gold-label reveal">Entertainment District</span>
-          <h2 className="display-2 reveal delay-100">
-            Beyond Shopping.{' '}
-            <br />
-            <span className="text-gold">Pure Experience.</span>
+      <div className="section-inner ent__inner">
+        
+        {/* ── Headline ── */}
+        <div className="ent__header reveal">
+          <span className="gold-label">Pure Experience</span>
+          <h2 className="ent__headline">
+            The Only Mall With <br />
+            <span className="text-gold">A Theme Park Inside.</span>
           </h2>
-          <p className="body-lg reveal delay-200">
-            MOA is a full-day destination. With 30+ acres of indoor entertainment,
-            guests spend 4.8 hours on average — dramatically increasing brand exposure time.
-          </p>
         </div>
 
-        {/* Attraction cards */}
-        <div className="entertainment__grid">
-          {ATTRACTIONS.map((attr, i) => (
-            <article
-              key={attr.id}
-              id={`entertainment-${attr.id}`}
-              className={`entertainment__card glass-card reveal delay-${(i + 1) * 100}`}
-              style={{ '--accent': attr.accent }}
-            >
-              <div className="entertainment__card-accent" aria-hidden="true" />
-              <div className="entertainment__card-body">
-                <h3 className="entertainment__card-name">{attr.name}</h3>
-                <p className="entertainment__card-tagline">{attr.tagline}</p>
-                <ul className="entertainment__card-features">
-                  {attr.features.map((f) => (
-                    <li key={f} className="entertainment__card-feature">
-                      <span className="entertainment__card-dot" aria-hidden="true" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
+        {/* ── Attraction Cards Horizontal Scroll ── */}
+        <div className="ent__scroll-wrapper reveal delay-200">
+          <div className="ent__scroll-track" role="list">
+            {ATTRACTIONS.map((attr, i) => (
+              <div 
+                key={i} 
+                className="ent__card" 
+                role="listitem"
+                style={{ '--accent': attr.color }}
+              >
+                <div className="ent__card-glow" aria-hidden="true" />
+                <div className="ent__card-top">
+                  <span className="ent__card-icon" aria-hidden="true">{attr.icon}</span>
+                  <h3 className="ent__card-title">{attr.title}</h3>
+                </div>
+                <div className="ent__card-bottom">
+                  <span className="ent__card-stats">{attr.stats}</span>
+                  <p className="ent__card-desc">{attr.desc}</p>
+                </div>
               </div>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="entertainment__cta reveal">
-          <div className="entertainment__cta-text">
-            <h3 className="entertainment__cta-headline">
-              Partner with an attraction. Amplify your brand.
-            </h3>
-            <p className="body-lg">
-              Co-branded experiences, sponsored zones, and attraction naming rights available.
-            </p>
-          </div>
-          <CTAButton
-            id="entertainment-cta-partner"
-            variant="primary"
-            href="mailto:partnerships@mallofamerica.com"
+      </div>
+
+      {/* ── Key Stat Banner ── */}
+      <div className="ent__stat-banner reveal delay-300">
+        <div className="section-inner">
+          <h3 className="ent__stat-text">
+            40M visitors per year — more than Disney World, the Grand Canyon, and Graceland <span className="ent__stat-combined">COMBINED</span>
+          </h3>
+        </div>
+      </div>
+
+      {/* ── CTA ── */}
+      <div className="section-inner reveal delay-400">
+        <div className="ent__cta-container">
+          <h3 className="ent__cta-headline">Become the destination your audience can't stop talking about.</h3>
+          <CTAButton 
+            variant="outline" 
+            onClick={() => scrollTo('partners')}
+            className="ent__cta-btn"
           >
-            Explore Partnerships
+            Sponsorship Inquiry
           </CTAButton>
         </div>
       </div>
+
     </section>
   );
 }

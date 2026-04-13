@@ -1,159 +1,230 @@
-.entertainment {
-  background: var(--color-surface);
+/* ============================================================
+   ENTERTAINMENT SECTION
+   ============================================================ */
+
+.ent {
+  background: var(--color-surface-2); /* Darker surface to let glow effects pop */
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: var(--space-5xl) 0;
+  gap: var(--space-4xl);
+  overflow: hidden;
+  position: relative;
 }
 
-.entertainment__bg {
+/* ── Light Effects ── */
+.ent__lights {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
-.entertainment__bg-gradient {
+.ent__light {
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201, 168, 76, 0.05) 0%, transparent 70%),
-    var(--color-surface);
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
 }
 
-.entertainment__bg-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.025) 1px, transparent 0);
-  background-size: 40px 40px;
-  opacity: 0.5;
+.ent__light--1 {
+  background: var(--color-brand-orange, #ff6a00);
+  width: 600px;
+  height: 600px;
+  top: -100px;
+  right: -100px;
+  animation: float 20s ease-in-out infinite alternate;
 }
 
-.entertainment__inner {
+.ent__light--2 {
+  background: var(--color-brand-blue, #00a8e1);
+  width: 500px;
+  height: 500px;
+  bottom: 0;
+  left: -150px;
+  animation: float 25s ease-in-out infinite alternate-reverse;
+}
+
+.ent__light--3 {
+  background: var(--color-gold);
+  width: 400px;
+  height: 400px;
+  top: 40%;
+  left: 30%;
+  opacity: 0.05;
+}
+
+/* ── Content Inner ── */
+.ent__inner {
   position: relative;
   z-index: var(--z-elevated);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4xl);
+  gap: var(--space-3xl);
   width: 100%;
 }
 
-.entertainment__header { max-width: 640px; }
-
-/* ─── Grid ─── */
-.entertainment__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-lg);
+.ent__header {
+  text-align: center;
 }
 
-/* ─── Card ─── */
-.entertainment__card {
+.ent__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: var(--weight-bold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ── Attraction Cards Horizontal Scroll ── */
+.ent__scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-xl) 0 var(--space-2xl); /* Some top padding for hover glow */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+.ent__scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.ent__scroll-track {
+  display: inline-flex;
+  gap: var(--space-2xl);
+  /* Use padding instead of margin to keep scroll area reachable */
+  padding-right: var(--space-2xl);
+  padding-left: var(--space-md);
+}
+
+.ent__card {
   position: relative;
-  overflow: hidden;
+  width: min(85vw, 380px);
+  min-height: 320px;
+  background: var(--color-surface-3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
   display: flex;
   flex-direction: column;
-  min-height: 360px;
-  transition: var(--transition-smooth);
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  /* Top border uses the dynamic accent CSS variable */
+  border-top: 4px solid var(--accent);
+  transition: transform var(--transition-smooth);
 }
 
-.entertainment__card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.5);
-}
-
-.entertainment__card-accent {
+/* Custom glow effect reflecting the card's theme color */
+.ent__card-glow {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: var(--accent, var(--color-gold));
-  box-shadow: 0 0 20px var(--accent, var(--color-gold));
+  height: 100px;
+  background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+  opacity: 0.1;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
 }
 
-.entertainment__card-body {
-  padding: var(--space-xl);
+.ent__card:hover {
+  transform: translateY(-8px);
+}
+
+.ent__card:hover .ent__card-glow {
+  opacity: 0.25;
+}
+
+.ent__card-top {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  flex: 1;
-  margin-top: var(--space-md);
 }
 
-.entertainment__card-name {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
+.ent__card-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.ent__card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
   font-weight: var(--weight-bold);
-  color: var(--color-text-primary);
-  letter-spacing: -0.01em;
+  color: var(--color-white);
+  line-height: 1.2;
 }
 
-.entertainment__card-tagline {
-  font-size: var(--text-sm);
-  color: var(--accent, var(--color-gold));
-  font-weight: var(--weight-medium);
-  font-style: italic;
-  line-height: 1.4;
-}
-
-.entertainment__card-features {
-  list-style: none;
+.ent__card-bottom {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
   margin-top: auto;
 }
 
-.entertainment__card-feature {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
+.ent__card-stats {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent); /* Uses dynamic variable */
+}
+
+.ent__card-desc {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Key Stat Banner ── */
+.ent__stat-banner {
+  background: #000;
+  padding: var(--space-4xl) 0;
+  text-align: center;
+  position: relative;
+  z-index: var(--z-elevated);
+}
+
+.ent__stat-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: var(--weight-medium);
+  color: var(--color-gold);
   line-height: 1.4;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.entertainment__card-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent, var(--color-gold));
-  flex-shrink: 0;
+.ent__stat-combined {
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.05em;
+  font-style: italic;
 }
 
-/* ─── Bottom CTA ─── */
-.entertainment__cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2xl);
-  padding: var(--space-2xl);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: rgba(255,255,255,0.02);
-}
-
-.entertainment__cta-text {
+/* ── CTA Container ── */
+.ent__cta-container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  align-items: center;
+  text-align: center;
+  gap: var(--space-lg);
+  padding-bottom: var(--space-2xl);
 }
 
-.entertainment__cta-headline {
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
+.ent__cta-headline {
+  font-size: var(--text-xl);
+  color: var(--color-white);
   font-weight: var(--weight-semibold);
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
+  max-width: 600px;
 }
 
-/* ─── Responsive ─── */
-@media (max-width: 1100px) {
-  .entertainment__grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 700px) {
-  .entertainment__grid { grid-template-columns: 1fr; }
-  .entertainment__cta  { flex-direction: column; align-items: flex-start; }
+/* Responsive */
+@media (max-width: 768px) {
+  .ent__scroll-track {
+    padding-left: var(--space-xl);
+  }
 }
