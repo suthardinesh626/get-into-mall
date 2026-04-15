@@ -1,0 +1,53 @@
+/* ============================================================
+   CUSTOM CURSOR
+   Gold follow-dot + hover ring
+   ============================================================ */
+
+/* Hide native cursor on desktop when custom cursor is active */
+@media (hover: hover) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+.cursor {
+  /* Fixed, starts at top-left, moved via JS transform */
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* Center the dot on the pointer position */
+  margin-left: -4px;
+  margin-top: -4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold, #c9a84c);
+  pointer-events: none;
+  z-index: 9999;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    margin 0.2s ease,
+    background 0.2s ease,
+    border 0.2s ease;
+  /* Smooth follow with no lag */
+  will-change: transform;
+}
+
+/* Expanded ring state on hover */
+.cursor--hovered {
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  margin-top: -16px;
+  background: transparent;
+  border: 1.5px solid var(--color-gold, #c9a84c);
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.3);
+}
+
+/* Hide on touch devices */
+@media (hover: none) {
+  .cursor {
+    display: none;
+  }
+}

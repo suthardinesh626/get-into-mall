@@ -1,38 +1,41 @@
+import { useEffect, useRef, useState } from 'react';
 import './SectionTransition.css';
 
 /**
  * SectionTransition
- * A decorative connector element between sections.
- * Supports fade, gradient-wipe, and gold-line styles.
+ * Renders between sections with:
+ *  - A gold line that draws across when entering viewport
+ *  - A section number/label badge in the top-left
  */
-export default function SectionTransition({ type = 'fade', fromColor, toColor }) {
-  if (type === 'gold-line') {
-    return (
-      <div className="st-gold-line" aria-hidden="true">
-        <div className="st-gold-line__bar" />
-      </div>
-    );
-  }
+export default function SectionTransition({ label, index }) {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef(null);
 
-  if (type === 'gradient') {
-    return (
-      <div
-        className="st-gradient"
-        aria-hidden="true"
-        style={{
-          background: `linear-gradient(to bottom, ${fromColor || 'var(--color-surface)'}, ${toColor || 'var(--color-surface-2)'})`,
-        }}
-      />
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.5 }
     );
-  }
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const num = String(index + 1).padStart(2, '0');
 
   return (
-    <div
-      className="st-fade"
-      aria-hidden="true"
-      style={{
-        background: `linear-gradient(to bottom, ${fromColor || 'transparent'}, ${toColor || 'var(--color-surface)'})`,
-      }}
-    />
+    <div className="st" ref={ref} aria-hidden="true">
+      {/* Gold line draws across */}
+      <div className={`st__line ${visible ? 'st__line--drawn' : ''}`} />
+      {/* Section label */}
+      {label && (
+        <div className={`st__label ${visible ? 'st__label--visible' : ''}`}>
+          <span className="st__label-num">{num}</span>
+          <span className="st__label-sep">/</span>
+          <span className="st__label-text">{label.toUpperCase()}</span>
+        </div>
+      )}
+    </div>
   );
 }

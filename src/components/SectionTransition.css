@@ -1,32 +1,81 @@
-.st-fade {
-  width: 100%;
-  height: 120px;
-  pointer-events: none;
-}
+/* ============================================================
+   SECTION TRANSITION
+   Gold line + section label
+   ============================================================ */
 
-.st-gradient {
+.st {
+  position: relative;
   width: 100%;
-  height: 2px;
-  pointer-events: none;
-}
-
-.st-gold-line {
+  height: 56px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: var(--space-xl) 0;
-  pointer-events: none;
+  overflow: hidden;
+  /* z-stacking: must sit above sections */
+  z-index: 5;
 }
 
-.st-gold-line__bar {
-  width: 80px;
+/* ── Gold line ── */
+.st__line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;               /* starts collapsed */
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--color-gold) 30%,
-    var(--color-gold-light) 50%,
-    var(--color-gold) 70%,
+    var(--color-gold-dark) 10%,
+    var(--color-gold) 50%,
+    var(--color-gold-dark) 90%,
     transparent 100%
   );
+  transform: translateY(-50%);
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.st__line--drawn {
+  width: 100%;
+}
+
+/* ── Section label ── */
+.st__label {
+  position: absolute;
+  left: var(--space-xl, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-black, #000);
+  padding: 4px 12px 4px 0;
+  /* Appears to sit ON TOP of the gold line */
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;
+}
+
+.st__label--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.st__label-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-gold, #c9a84c);
+  letter-spacing: 0.05em;
+}
+
+.st__label-sep {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: rgba(201, 168, 76, 0.4);
+}
+
+.st__label-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
