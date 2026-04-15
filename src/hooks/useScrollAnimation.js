@@ -89,27 +89,37 @@ export function useActiveSection(sectionIds = []) {
   useEffect(() => {
     if (!sectionIds.length) return;
 
-    const observers = [];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      // 45% visible required; no custom root — uses viewport correctly
+      { threshold: 0.45 }
+    );
 
-    const createObserver = (id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
-        // 45% visible required; no custom root — uses viewport correctly
-        { threshold: 0.45 }
-      );
-
-      obs.observe(el);
-      observers.push(obs);
+    const tryObserve = () => {
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
     };
 
-    sectionIds.forEach(createObserver);
+    // Initial check
+    tryObserve();
 
-    return () => observers.forEach((obs) => obs.disconnect());
+    // Watch for DOM mutations since sections load async via React.lazy
+    const mo = new MutationObserver(() => {
+      tryObserve();
+    });
+
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mo.disconnect();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sectionIds.join(',')]);
 

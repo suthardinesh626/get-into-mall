@@ -10,7 +10,7 @@ const SECTIONS = [
   { id: 'dining',       label: 'Dining',         icon: '⬡' },
   { id: 'entertainment', label: 'Entertainment', icon: '⬡' },
   { id: 'events',       label: 'Events',         icon: '⬡' },
-  { id: 'partners',     label: 'Partners',       icon: '⬡' },
+  { id: 'sponsors',     label: 'Partners',       icon: '⬡' },
 ];
 
 export default function Navigation() {
@@ -85,7 +85,7 @@ export default function Navigation() {
       <button
         id="nav-cta-contact"
         className="nav__cta"
-        onClick={() => scrollTo('partners')}
+        onClick={() => scrollTo('leasing')}
         aria-label="Contact partnership team"
       >
         <span className="nav__cta-line" aria-hidden="true" />
