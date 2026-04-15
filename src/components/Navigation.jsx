@@ -10,6 +10,7 @@ const SECTIONS = [
   { id: 'dining',       label: 'Dining',         icon: '⬡' },
   { id: 'entertainment', label: 'Entertainment', icon: '⬡' },
   { id: 'events',       label: 'Events',         icon: '⬡' },
+  { id: 'venues',       label: 'Venues',         icon: '⬡' },
   { id: 'sponsors',     label: 'Partners',       icon: '⬡' },
 ];
 

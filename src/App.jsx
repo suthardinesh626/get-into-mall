@@ -14,6 +14,7 @@ const Luxury        = lazy(() => import('./sections/Luxury'));
 const Dining        = lazy(() => import('./sections/Dining'));
 const Entertainment = lazy(() => import('./sections/Entertainment'));
 const Events        = lazy(() => import('./sections/Events'));
+const Venues        = lazy(() => import('./sections/Venues'));
 const Sponsorship   = lazy(() => import('./sections/Sponsorship'));
 const Leasing       = lazy(() => import('./sections/Leasing'));
 
@@ -25,8 +26,9 @@ const TRANSITIONS = [
   { label: 'Dining & F&B' },         // 04 — between Luxury & Dining
   { label: 'Entertainment' },        // 05 — between Dining & Entertainment
   { label: 'Events & Platform' },    // 06 — between Entertainment & Events
-  { label: 'Sponsorship' },          // 07 — between Events & Sponsorship
-  { label: 'Leasing Paths' },        // 08 — between Sponsorship & Leasing
+  { label: 'Dedicated Venues' },     // 07 — between Events & Venues
+  { label: 'Sponsorship' },          // 08 — between Venues & Sponsorship
+  { label: 'Leasing Paths' },        // 09 — between Sponsorship & Leasing
 ];
 
 // Fallback while section code-splits load
@@ -114,10 +116,15 @@ export default function App() {
 
         <SectionTransition label={TRANSITIONS[6].label} index={6} />
         <Suspense fallback={<SectionFallback />}>
-          <Sponsorship />
+          <Venues />
         </Suspense>
 
         <SectionTransition label={TRANSITIONS[7].label} index={7} />
+        <Suspense fallback={<SectionFallback />}>
+          <Sponsorship />
+        </Suspense>
+
+        <SectionTransition label={TRANSITIONS[8].label} index={8} />
         <Suspense fallback={<SectionFallback />}>
           <Leasing />
         </Suspense>

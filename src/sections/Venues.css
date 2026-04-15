@@ -1,0 +1,125 @@
+/* ============================================================
+   VENUES SECTION
+   ============================================================ */
+.venues {
+  background: var(--color-surface);
+  padding: var(--space-5xl) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.venues__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xl);
+}
+
+.venues__header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.venues__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+}
+
+.venues__sub {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+}
+
+.venues__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+}
+
+.venues__card {
+  background: var(--color-surface-2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: transform var(--transition-smooth), border-color var(--transition-fast);
+}
+
+.venues__card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+.venues__card-type {
+  font-size: 11px;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: var(--weight-bold);
+}
+
+.venues__card-name {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-white);
+  line-height: 1.2;
+}
+
+.venues__card-cap {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.venues__card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.venues__card-features {
+  list-style: none;
+  padding: var(--space-md) 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.venues__feature {
+  font-size: var(--text-sm);
+  color: var(--color-white);
+}
+
+.venues__btn {
+  margin-top: var(--space-lg);
+}
+
+@media (max-width: 1024px) {
+  .venues__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .venues {
+    padding: var(--space-2xl) 0;
+  }
+  .venues__card {
+    padding: var(--space-lg);
+  }
+  .venues__headline {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+  }
+}

@@ -323,3 +323,16 @@
     padding: var(--space-lg);
   }
 }
+
+@media (max-width: 480px) {
+  .spons {
+    padding: var(--space-2xl) 0;
+  }
+  .spons__data-card,
+  .spons__tier-card {
+    padding: var(--space-lg);
+  }
+  .spons__headline {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+  }
+}
