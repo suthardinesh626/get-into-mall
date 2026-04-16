@@ -93,7 +93,7 @@ export default function Hero() {
 
       {/* ── Watch Video toggle button (top-right) ── */}
       <div className="hero2__watch-wrap">
-        <span className="hero2__watch-finger" aria-hidden="true">👇</span>
+        {/* <span className="hero2__watch-finger" aria-hidden="true">👇</span> */}
         <button
           id="hero-watch-video-btn"
           className={`hero2__watch-btn ${textHidden ? 'hero2__watch-btn--active' : ''}`}
