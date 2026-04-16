@@ -96,14 +96,7 @@ export default function Entertainment() {
 
       </div>
 
-      {/* ── Key Stat Banner ── */}
-      <div className="ent__stat-banner reveal delay-300">
-        <div className="section-inner">
-          <h3 className="ent__stat-text">
-            40M visitors per year — more than Disney World, the Grand Canyon, and Graceland <span className="ent__stat-combined">COMBINED</span>
-          </h3>
-        </div>
-      </div>
+
 
       {/* ── CTA ── */}
       <div className="section-inner reveal delay-400">

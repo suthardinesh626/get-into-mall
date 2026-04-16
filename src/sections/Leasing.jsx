@@ -69,7 +69,7 @@ export default function Leasing() {
   return (
     <section id="leasing" className="section leasing">
       
-      <div className="section-inner">
+      {/* <div className="section-inner">
         <div className="leasing__header reveal">
           <span className="gold-label">Leasing Opportunities</span>
           <h2 className="leasing__headline">
@@ -77,7 +77,7 @@ export default function Leasing() {
             <span className="text-gold">At The Center.</span>
           </h2>
         </div>
-      </div>
+      </div> */}
 
       <div className="leasing__layout section-inner">
         
@@ -143,8 +143,8 @@ export default function Leasing() {
                 </div>
               </div>
               <div className="leasing__form-group">
-                <select id="spaceType" required className="leasing__select">
-                  <option value="" disabled selected>Select Space Type...</option>
+                <select id="spaceType" required className="leasing__select" defaultValue="">
+                  <option value="" disabled>Select Space Type...</option>
                   <option value="luxury">Luxury & Premium</option>
                   <option value="retail">Standard Retail / Flagship</option>
                   <option value="fb">Food & Beverage / Restaurant</option>

@@ -14,7 +14,7 @@
 .events__hero {
   position: relative;
   width: 100%;
-  height: 70vh; /* Not full vh to leave room for content below */
+  height: 70%; /* Not full % to leave room for content below */
   min-height: 500px;
   display: flex;
   align-items: center;

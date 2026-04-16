@@ -81,7 +81,7 @@ export default function Retail() {
       </div>
 
       {/* ── Leasing CTA Card ── */}
-      <div className="section-inner reveal delay-400">
+      {/* <div className="section-inner reveal delay-400">
         <div className="retail__cta-card">
           <h3 className="retail__cta-headline">Ready to find your space?</h3>
           <p className="retail__cta-sub">
@@ -95,7 +95,7 @@ export default function Retail() {
             REQUEST LEASING INFO
           </CTAButton>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

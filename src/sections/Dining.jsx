@@ -56,7 +56,7 @@ export default function Dining() {
              ))}
           </div>
 
-          <div className="dining__opportunity reveal delay-600">
+          {/* <div className="dining__opportunity reveal delay-600">
             <div className="dining__opp-card">
               <h3 className="dining__opp-title">F&B Leasing Opportunities</h3>
               <p className="dining__opp-desc">Restaurant, café, and food hall concepts welcome.</p>
@@ -68,7 +68,7 @@ export default function Dining() {
                 EXPLORE F&B SPACES
               </CTAButton>
             </div>
-          </div>
+          </div> */}
 
         </div>
 
