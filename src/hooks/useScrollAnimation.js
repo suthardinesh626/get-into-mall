@@ -24,8 +24,8 @@ export function useScrollAnimation(options = {}) {
     if (
       el.nodeType === Node.ELEMENT_NODE &&
       (el.classList.contains('reveal') ||
-       el.classList.contains('reveal-left') ||
-       el.classList.contains('reveal-right'))
+        el.classList.contains('reveal-left') ||
+        el.classList.contains('reveal-right'))
     ) {
       ioRef.current.observe(el);
     }
@@ -80,11 +80,10 @@ export function useScrollAnimation(options = {}) {
 /**
  * useActiveSection
  * Tracks which section is currently in the viewport using IntersectionObserver.
- *
- * NOTE: Works correctly now that <html> is the scroll container (viewport root).
  */
 export function useActiveSection(sectionIds = []) {
   const [activeSection, setActiveSection] = useState(sectionIds[0] || '');
+  const ratios = useRef(new Map());
 
   useEffect(() => {
     if (!sectionIds.length) return;
@@ -92,11 +91,28 @@ export function useActiveSection(sectionIds = []) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          ratios.current.set(entry.target.id, entry.intersectionRatio);
         });
+
+        let maxRatio = 0;
+        let maxId = '';
+        
+        // Find the section that occupies the largest viewed proportion
+        ratios.current.forEach((ratio, id) => {
+          if (ratio > maxRatio) {
+            maxRatio = ratio;
+            maxId = id;
+          }
+        });
+
+        if (maxId) {
+          setActiveSection(maxId);
+        }
       },
-      // 45% visible required; no custom root — uses viewport correctly
-      { threshold: 0.45 }
+      {
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+        rootMargin: '-15% 0px -15% 0px' 
+      }
     );
 
     const tryObserve = () => {
@@ -106,10 +122,8 @@ export function useActiveSection(sectionIds = []) {
       });
     };
 
-    // Initial check
     tryObserve();
 
-    // Watch for DOM mutations since sections load async via React.lazy
     const mo = new MutationObserver(() => {
       tryObserve();
     });
